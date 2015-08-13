@@ -33,5 +33,9 @@ Meteor.methods({
     returnCoins: function(user) {
         var justelecas = Justelecas.find({reciever: user});
         return  jsutelecas;
+    },
+    returnMe: function(user) {
+        var justelecas = Justelecas.find({reciever: user});
+        return  justelecas;
     }
 })

@@ -18,6 +18,11 @@ Router.route('/list', function() {
 
 });
 
+Router.route('/list/me', function() {
+	this.render('listMe');
+
+});
+
 Router.route('/logout', function() {
 	this.render('logout');
 
