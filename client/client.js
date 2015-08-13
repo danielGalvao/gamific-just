@@ -16,11 +16,33 @@ Template.logout.rendered = function () {
 	AccountsTemplates.logout();
 	Router.go('/');
 };
+
 Template.listCoin.helpers({
 	'justelecas': function() {
 		if (Meteor.user()) {
 			var user = Meteor.user().emails[0].address;
 			return Justelecas.find({reciever: user}, {sort: {timestamp: -1}});
+		}
+	},
+	'count': function() {
+		if (Meteor.user()) {
+			var user = Meteor.user().emails[0].address;
+			return Justelecas.find({reciever: user}).count();
+		}
+	}
+});
+
+Template.listMe.helpers({
+	'justelecas': function() {
+		if (Meteor.user()) {
+			var user = Meteor.user().emails[0].address;
+			return Justelecas.find({sender: user}, {sort: {timestamp: -1}});
+		}
+	},
+	'count': function() {
+		if (Meteor.user()) {
+			var user = Meteor.user().emails[0].address;
+			return Justelecas.find({sender: user}).count();
 		}
 	}
 });
@@ -47,9 +69,11 @@ Template.addCoin.events({
 			} else if (data == 'no_reason') {
 				Materialize.toast('Especifique um motivo.', 3000);
 			} else if (data == 'same') {
-				Materialize.toast('Não pode ser para você.', 3000)
+				Materialize.toast('Não pode ser para você.', 3000);
+			}else{
+				Materialize.toast('Justeleca enviada.', 3000);
+				$('input').val('');
 			}
-
 		});
 	},
 	'click .collection': function(e, t) {

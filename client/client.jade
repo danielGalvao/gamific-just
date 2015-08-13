@@ -16,12 +16,14 @@ template(name="navBar")
 			ul.right.hide-on-med-and-down
 				li: a(href="/") Home
 				li: a(href="/add") Enviar Justeleca
-				li: a(href="/list") Minhas Justelecas
+				li: a(href="/list") Justelecas Recebidas
+				li: a(href="/list/me") Justelecas Enviadas
 				li: a(href="/logout") Deslogar
 			ul.side-nav#mobile-demo
 				li: a(href="/") Home
 				li: a(href="/add") Enviar Justeleca
-				li: a(href="/list") Minhas Justelecas
+				li: a(href="/list") Justelecas Recebidas
+				li: a(href="/list/me") Justelecas Enviadas
 				li: a(href="/logout") Deslogar
 
 template(name="home")
@@ -52,7 +54,7 @@ template(name="addCoin")
 
 template(name="listCoin")
 	.row
-		h4.center-align Minhas Justelecas
+		h4.center-align Minhas Justelecas #{count}
 		each justelecas
 			+justeleca
 
@@ -69,3 +71,9 @@ template(name="logout")
 
 template(name="login")
 	+atForm
+
+template(name="listMe")
+	.row
+		h4.center-align Justelecas enviadas #{count}
+		each justelecas
+			+justeleca
