@@ -69,9 +69,11 @@ Template.addCoin.events({
 			} else if (data == 'no_reason') {
 				Materialize.toast('Especifique um motivo.', 3000);
 			} else if (data == 'same') {
-				Materialize.toast('Não pode ser para você.', 3000)
+				Materialize.toast('Não pode ser para você.', 3000);
+			}else{
+				Materialize.toast('Justeleca enviada.', 3000);
+				$('input').val('');
 			}
-
 		});
 	},
 	'click .collection': function(e, t) {
