@@ -11,19 +11,23 @@ body
 template(name="navBar")
 	nav.blue.darken-4
 		.nav-wrapper
-			a(href="#!").brand-logo Gamification
+			a(href="/").brand-logo Gamification
 			a(href="#" data-activates="mobile-demo").button-collapse: i.material-icons menu
 			ul.right.hide-on-med-and-down
 				li: a(href="/") Home
 				li: a(href="/add") Enviar Justeleca
-				li: a(href="/list") Justelecas Recebidas
-				li: a(href="/list/me") Justelecas Enviadas
+				li: a(href="/list") Justelecas Recebidas 
+					span.badge {{count 'recieved'}}
+				li: a(href="/list/me") Justelecas Enviadas 
+					span.badge {{count 'sent'}}
 				li: a(href="/logout") Deslogar
 			ul.side-nav#mobile-demo
 				li: a(href="/") Home
 				li: a(href="/add") Enviar Justeleca
-				li: a(href="/list") Justelecas Recebidas
-				li: a(href="/list/me") Justelecas Enviadas
+				li: a(href="/list") Justelecas Recebidas 
+					span.badge {{count 'recieved'}}
+				li: a(href="/list/me") Justelecas Enviadas 
+					span.badge {{count 'sent'}}
 				li: a(href="/logout") Deslogar
 
 template(name="home")
@@ -54,7 +58,15 @@ template(name="addCoin")
 
 template(name="listCoin")
 	.row
-		h4.center-align Minhas Justelecas #{count}
+		h4.center-align Minhas Justelecas 
+			span.badge #{count}
+		each justelecas
+			+justeleca
+
+template(name="listMe")
+	.row
+		h4.center-align Justelecas enviadas
+			span.badge #{count}
 		each justelecas
 			+justeleca
 
@@ -66,14 +78,5 @@ template(name="justeleca")
 		.card-action.yellow-text
 			span {{prettifyDate timestamp}}
 
-template(name="logout")
-	h3 Deslogando...
-
 template(name="login")
 	+atForm
-
-template(name="listMe")
-	.row
-		h4.center-align Justelecas enviadas #{count}
-		each justelecas
-			+justeleca

@@ -14,28 +14,20 @@ Meteor.methods({
                         Justelecas.insert(justeleca);
                         return 'added';
                     } else {
-                        console.log('same');
-                        return 'no_reason';
+                        console.log('no_reason');
+                        throw new Meteor.Error(500, 'no_reason');
                     }
                 } else {
-                    return 'same';
-                    console.log('no_reason');
+                    throw new Meteor.Error(500, 'same');
+                    console.log('same');
                 }
             } else {
-                console.log('reciever_not_found');
-                return 'sender_not_found';
+                console.log('sender_not_found');
+                throw new Meteor.Error(500, 'sender_not_found');
             }
         } else {
-            console.log('sender_not_found');
-            return 'reciever_not_found';
+            console.log('reciever_not_found');
+            throw new Meteor.Error(500, 'reciever_not_found');
         }
-    },
-    returnCoins: function(user) {
-        var justelecas = Justelecas.find({reciever: user});
-        return  jsutelecas;
-    },
-    returnMe: function(user) {
-        var justelecas = Justelecas.find({reciever: user});
-        return  justelecas;
     }
 })

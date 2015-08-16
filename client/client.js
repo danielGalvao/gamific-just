@@ -12,10 +12,15 @@ Template.navBar.rendered = function () {
   );
 };
 
-Template.logout.rendered = function () {
-	AccountsTemplates.logout();
-	Router.go('/');
-};
+Template.navBar.helpers({
+	'count': function(option) {
+		if (Meteor.user()) {
+			var user = Meteor.user().emails[0].address;
+			var query = (option == 'sent') ? {sender: user} : {reciever: user};
+			return Justelecas.find(query).count();
+		}
+	}
+})
 
 Template.listCoin.helpers({
 	'justelecas': function() {
@@ -57,22 +62,24 @@ Template.justeleca.helpers({
 Template.addCoin.events({
 	'submit #addCoin': function(e, t) {
 		e.preventDefault();
-		window.evt = e;
 		var sender = Meteor.user().emails[0].address;
 		var reciever = e.target.reciever.value;
 		var reason = $('#reason').val();
 		console.log(sender, reciever, reason);
 		Meteor.call('addCoin', sender, reciever, reason, function(err, data) {
-			console.log(data);
-			if (data == 'reciever_not_found') {
-				Materialize.toast('Verifique o e-mail digitado.', 3000);
-			} else if (data == 'no_reason') {
-				Materialize.toast('Especifique um motivo.', 3000);
-			} else if (data == 'same') {
-				Materialize.toast('Não pode ser para você.', 3000);
-			}else{
+			if (err) {
+				var reason = err.reason;
+				console.log(reason);
+				if (reason == 'reciever_not_found') {
+					Materialize.toast('Verifique o e-mail digitado.', 3000);
+				} else if (reason == 'no_reason') {
+					Materialize.toast('Especifique um motivo.', 3000);
+				} else if (reason == 'same') {
+					Materialize.toast('Não pode ser para você.', 3000);
+				}
+			} else {
 				Materialize.toast('Justeleca enviada.', 3000);
-				$('input').val('');
+				$('input, textarea').val('');
 			}
 		});
 	},

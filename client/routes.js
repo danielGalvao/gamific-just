@@ -10,20 +10,17 @@ Router.route('/', function() {
 
 Router.route('/add', function() {
 	this.render('addCoin');
-
 });
 
 Router.route('/list', function() {
 	this.render('listCoin');
-
 });
 
 Router.route('/list/me', function() {
 	this.render('listMe');
-
 });
 
 Router.route('/logout', function() {
-	this.render('logout');
-
+	AccountsTemplates.logout();
+	this.render('login');
 });
